@@ -113,9 +113,5 @@ ENV/
 # Data
 data/clean_parquet
 
-# Out
-out/
 
-# Model
-notebook/
 
