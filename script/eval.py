@@ -15,7 +15,7 @@ add_root_to_path()
 from src.path import (DATA_CLEAN, LABEL_PATH, OUT_DIR,
                       generate_result_filename)
 from src.dataset import NuclearFusionTimeSeriesDataset
-from src.metric import calc_acc, confusion_matrix, f1_score
+from src.metric import confusion_matrix
 from models.WaveNet import WaveNetClassifier
 from src.plot_utils import plot_conf_matrix
 
@@ -28,7 +28,7 @@ parser.add_argument('--label-dir', default=LABEL_PATH, type=str,
 
 # model specific
 parser.add_argument('--model_name', type=str,
-                    default="bestwavenet-150chan-900epoch-01062022.pt",
+                    default="bestwavenet-150chan-2epoch-10062022.pt",
                     help='name model (default:)')
 parser.add_argument('--model_dir', type=str, default=OUT_DIR,
                     help='directory of model (default: OUT_DIR)')
