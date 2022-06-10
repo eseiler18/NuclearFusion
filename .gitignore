@@ -111,8 +111,7 @@ ENV/
 *.csv
 
 # Data
-data/parquet/
-data/
+data/clean_parquet
 
 # Out
 out/

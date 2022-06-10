@@ -56,11 +56,10 @@ parser.add_argument('--dropout', type=float, default=0,
 
 # other
 parser.add_argument('--threshold-list', type=list,
-                    # =[0.9, 0.8, 0.7, 0.6, 0.5, 0.4, 0.3, 0.2, 0.1] +
-                    #         [0.09, 0.08, 0.07, 0.06, 0.05, 0.04, 0.03, 0.02, 0.01] +
-                    # default = [0.009, 0.008, 0.007, 0.006, 0.005, 0.004, 0.003, 0.002, 0.001]
-                    default = [0.0009, 0.0008, 0.0007, 0.0006, 0.0005, 0.0004, 0.0003, 0.0002, 0.0001],
-                    # help='thresholds to test for classification (default: )')
+                    default=[0.9, 0.8, 0.7, 0.6, 0.5, 0.4, 0.3, 0.2, 0.1] +
+                    [0.09, 0.08, 0.07, 0.06, 0.05, 0.04, 0.03, 0.02, 0.01] +
+                    [0.009, 0.008, 0.007, 0.006, 0.005, 0.004, 0.003, 0.002, 0.001] +
+                    [0.0009, 0.0008, 0.0007, 0.0006, 0.0005, 0.0004, 0.0003, 0.0002, 0.0001],
                     )
 parser.add_argument('-j', '--workers', default=4, type=int, metavar='N',
                     help='number of data loading workers (default: 4)')
@@ -117,21 +116,17 @@ def main():
     conf_mat = []
     threshold_list = args.threshold_list
     threshold_list.sort()
-    torch.set_grad_enabled(False) 
+    torch.set_grad_enabled(False)
     for threshold in tqdm(threshold_list, desc='Eval threshold',
-                         unit='threshold', leave=False):
+                          unit='threshold', leave=False):
         th_loss = []
-        # th_acc = []
-        # th_f1 = []
         FP = 0
         FN = 0
         TP = 0
         TN = 0
-        # with tqdm(evalLoader, desc='eval model',
-        #           unit='batch', leave=False) as t1:
-        #     for x, target, weight, ind in t1:
-        if True:
-            for x, target, weight, ind in evalLoader:
+        with tqdm(evalLoader, desc='eval model',
+                  unit='batch', leave=False) as t1:
+            for x, target, weight, ind in t1:
                 x = x.to(device)
                 target = target.to(device)
                 weight = weight.to(device)
@@ -143,27 +138,20 @@ def main():
                 # calc metric
                 loss = F.binary_cross_entropy(output, target[..., nrec:],
                                               weight=weight[..., nrec:])
-                # acc = calc_acc(output, target[..., nrec:], threshold)
-                # f1 = f1_score(output, target[..., nrec:], threshold)
                 tp, tn, fp, fn = confusion_matrix(output, target[..., nrec:],
                                                   threshold)
 
                 # add metric
                 th_loss.append(loss)
-                # th_acc.append(acc)
-                # if f1 != -1000:
-                #     th_f1.append(f1)
                 TP += tp
                 TN += tn
                 FP += fp
                 FN += fn
         eval_loss.append(sum(th_loss)/len(th_loss))
-        eval_acc.append((TP + TN)/ (TP + FN + TN + FP))
+        eval_acc.append((TP + TN)/(TP + FN + TN + FP))
         eval_precision.append(TP / (FP + TP))
-        eval_recall.append( TP / (FN + TP))
-        eval_f1.append(2* eval_precision[-1] * eval_recall[-1]/ (eval_precision[-1] + eval_recall[-1]))
-        # eval_acc.append(sum(th_acc)/len(th_acc))
-        # eval_f1.append(sum(th_f1)/len(th_f1))
+        eval_recall.append(TP / (FN + TP))
+        eval_f1.append(2*eval_precision[-1] * eval_recall[-1]/(eval_precision[-1] + eval_recall[-1]))
         conf_mat.append([TP, TN, FP, FN])
 
     best_threshold_index = eval_f1.index(max(eval_f1))

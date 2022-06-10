@@ -51,7 +51,7 @@ class StackResidualBloc(nn.Module):
                  layer_size, dropout):
         super().__init__()
         allDilations = self.buildDilation(stack_size, layer_size)
-        self.resBlocs =  nn.ModuleList([])
+        self.resBlocs = nn.ModuleList([])
         for dilations in allDilations:
             for dilation in dilations:
                 self.resBlocs.append(ResidualBlock(res_channel, skip_channel,

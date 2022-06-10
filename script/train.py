@@ -29,9 +29,9 @@ parser.add_argument('--label-dir', default=LABEL_PATH, type=str,
 parser.add_argument('--model', type=str, default="wavenet",
                     help='name model (default: "wavenet")')
 parser.add_argument('--batch', type=int, default=4, metavar='N',
-                    help='batch size (default: 1)')
+                    help='batch size (default: 4)')
 parser.add_argument('--input-channels', type=int, default=150,
-                    help='number of in channels (default: 373 for clean shot)')
+                    help='number of in channels (default: 150 for Dataset1)')
 parser.add_argument('--n-classes', type=int, default=1,
                     help='number classification classes'
                     ' (1 for binary classification) (default: 1)')
@@ -58,21 +58,21 @@ parser.add_argument('--prtrain-dir', type=str, default=OUT_DIR,
                     help='directory of pretrained model')
 # learning
 parser.add_argument('--thresholds', type=list,
-                    default=[0.9, 0.8, 0.7, 0.6, 0.5, 0.4, 0.3, 0.2, 0.1],
-                            #, 0.05, 0.01, 0.007, 0.005,
-                            #  0.002, 0.001, 0.0007, 0.0005, 0.0001, 0.00007,
-                            #  0.00005, 0.00002, 0.00001],
+                    default=[0.9, 0.8, 0.7, 0.6, 0.5, 0.4, 0.3, 0.2, 0.1] +
+                            [0.05, 0.01, 0.007, 0.005] +
+                            [0.002, 0.001, 0.0007, 0.0005, 0.0001, 0.00007] +
+                            [0.00005, 0.00002, 0.00001],
                     help='thresholds for classification (default: )')
 parser.add_argument('--split', type=float, default=0.2,
                     help='test/train split rate (default: 0.2)')
 parser.add_argument('--validation', default=False, type=bool,
                     help="do validation or not")
 parser.add_argument('--lr', type=float, default=1e-4,
-                    help='initial learning rate (default: 1e-3)')
+                    help='initial learning rate (default: 1e-4)')
 parser.add_argument('--start-epoch', default=0, type=int, metavar='N',
                     help='manual epoch number (useful on restarts)')
-parser.add_argument('--epochs', type=int, default=1000,
-                    help='upper epoch limit (default: 20)')
+parser.add_argument('--epochs', type=int, default=500,
+                    help='upper epoch limit (default: 500)')
 parser.add_argument('--label-balance', type=str, default='const',
                     help="Type of label balancing. (default: const)")
 # other
@@ -130,9 +130,7 @@ def main():
                                              map_location=torch.device('cpu')))
 
     optimizer = torch.optim.Adam(model.parameters(), args.lr)
-    scheduler = torch.optim.lr_scheduler.MultiStepLR(optimizer, milestones=[200, 600], gamma=0.1)
-    # scheduler = torch.optim.lr_scheduler.StepLR(optimizer, 150, gamma=0.1^(1/2))
-    # scheduler_plateau = torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer,factor=0.5, patience=5)
+    scheduler = torch.optim.lr_scheduler.StepLR(optimizer, 150, gamma=0.1)
     if torch.cuda.is_available():
         device = torch.device("cuda")
     else:
@@ -177,12 +175,10 @@ def main():
             FN = 0
             TP = 0
             TN = 0
-            # with tqdm(trainDataLoader,
-            #           desc=f'Train epoch {epoch}',
-            #           unit='batch', leave=False) as t1:
-                # for x_train, y_train, weight, ind in t1:
-            if True:
-                for x_train, y_train, weight, ind in trainDataLoader:
+            with tqdm(trainDataLoader,
+                      desc=f'Train epoch {epoch}',
+                      unit='batch', leave=False) as t1:
+                for x_train, y_train, weight, ind in t1:
                     x_train = x_train.to(device)
                     y_train = y_train.to(device)
                     weight = weight.to(device)
@@ -227,13 +223,12 @@ def main():
                     conf_mat.append([TP, TN, FP, FN])
                     if test_f1[-1] > max_f1:
                         max_f1 = test_f1[-1]
-                        filename = generate_model_filename("best"+args.model, final_epoch, args.input_channels)
+                        filename = generate_model_filename("best"+args.model,
+                                                           final_epoch,
+                                                           args.input_channels)
                         weights = model.state_dict()
                         torch.save(weights, filename)
                 scheduler.step()
-                # scheduler_plateau.step(train_loss[-1])
-                if epoch%5==0:
-                    print(test_f1[-1])
 
             if args.validation:
                 with torch.no_grad():
@@ -245,12 +240,10 @@ def main():
                     FN = 0
                     TP = 0
                     TN = 0
-                    # with tqdm(testDataLoader,
-                    #           desc=f'Test epoch {epoch}',
-                    #           unit='batch', leave=False) as t1:
-                        # for x_test, y_test, w, _ in t1:
-                    if True:
-                        for x_test, y_test, w, _ in testDataLoader:
+                    with tqdm(testDataLoader,
+                              desc=f'Test epoch {epoch}',
+                              unit='batch', leave=False) as t1:
+                        for x_test, y_test, w, _ in t1:
                             x_test = x_test.to(device)
                             y_test = y_test.to(device)
                             w = w.to(device)
@@ -290,13 +283,15 @@ def main():
                     if test_f1[-1] > max_f1:
                         max_f1 = test_f1[-1]
                         filename = generate_model_filename("best"+args.model,
-                                                           final_epoch, args.input_channels)
+                                                           final_epoch,
+                                                           args.input_channels)
                         weights = model.state_dict()
                         torch.save(weights, filename)
 
     # Save history and model
     # save model
-    filename = generate_model_filename(args.model, final_epoch, args.input_channels)
+    filename = generate_model_filename(args.model, final_epoch,
+                                       args.input_channels)
     weights = model.state_dict()
     torch.save(weights, filename)
 
