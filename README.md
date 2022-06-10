@@ -1,8 +1,6 @@
 # Disruption prediction for nuclear fusion with Wavenet on JET dataset 
 
-* [Emilien Seiler](mailto:emilien.seiler@epfl.ch)
-
-Semester project of Emilien Seiler, Master in Computational Science and Engineering at EPFL. 
+Semester project of [Emilien Seiler](mailto:emilien.seiler@epfl.ch), Master in Computational Science and Engineering at EPFL. 
 Collaboration project between Computer Vision Laboratory (CVLab) and the Swiss Plasma Center (SPC) at EPFL.
 
 ## Instaling
