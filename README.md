@@ -1,4 +1,4 @@
-# Disruption prediction for nuclear fusion with Wavenet on JET dataset [Author: Emilien Seiler Master EPFL 2020]
+# Disruption prediction for nuclear fusion with Wavenet on JET dataset 
 
 * [Emilien Seiler](mailto:emilien.seiler@epfl.ch)
 
