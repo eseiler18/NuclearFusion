@@ -8,20 +8,35 @@ To setup a miniconda environement
 ```
 conda env create -f <path_to_environement.yml_file>
 ```
+## Data
+Parquet data are provide on the SPC lac 10 cluster in the `/tmp/apau/ folder`
+Dataset1 with 150 channels in `/parquet150chan`
+Dataset2 with 372 channels in `/parquet372chan`
 
 ## To train model
 ```
-cd project/script
+python train.py --epoch <nb_epoch> --batch <batch_size> --parquet-dir <path_to_parquet> --input-channels <channel 150 or 372>
 ```
-```
-python train.py --epoch <nb_epoch> --batch <batch_size> --parquet-dir <path_to_parquet>
-```
-On lac10 server recommend batch-size <= 12.
+To train on a pretrained model use:
+- `--prtrain-model`: str, name of the model file
+- `--prtrain-log`: str, name of the log file
+- `--prtrain-dir`: str, directory of the pretrained file
 
-Model and log of the training will be save in project/output at the end of the training
+To train on a Wavenet with other hyperparameters:
+- `--kernel-size`: int
+- `--stack-size`: int
+- `--layer-size`: int
+- `--nrecept`: depand of the three hyperparameter look in the report Eq. 4
+- `--dropout`: float
 
-## Data
-parquet data are in the /tmp/apau file of lac10
+Other parameter
+- `--in-memory`: boolean, to keep all data in memory if you have enougth RAM
+- `--lr`: float, initial learning rate
+- `--validation`: boolean, split data in train and test set
+- `--split`: float, split ratio
+
+On lac10 cluster recommend batch-size <= 12.
+Model and log of the training will be save in `project/output` at the end of the training
 
 
 ## Structure
