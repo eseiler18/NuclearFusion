@@ -1,0 +1,14 @@
+name: base
+channels:
+  - defaults
+dependencies:
+  - conda
+  - python=3.9
+  - numpy
+  - pytorch
+  - tqdm
+  - matplotlib
+  - pandas
+  - seaborn
+  - pyarrow
+prefix: /home/cours28/miniconda3
