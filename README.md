@@ -53,18 +53,18 @@ This is the structure of the repository:
 - `notebook`: 
   - `plot_training.ipynb`: notebook to plot training result
 - `output`:
-  -`bestwavenet-150chan-900epoch-01062022.pt`: best model
-  -`log-150chan-900epoch-01062022.pickle`: log of best model
+  - `bestwavenet-150chan-900epoch-01062022.pt`: best model
+  - `log-150chan-900epoch-01062022.pickle`: log of best model
 - `script`:
-  -`train.py`: script to train 
-  -`eval.py`: script to eval
+  - `train.py`: script to train 
+  - `eval.py`: script to eval
 - `src`:
-  -`data_exploration.py`: functions for data exploration
-  -`path.py`: path management
-  -`data_preprocessing.py`: functions for data preprocessing
-  -`dataset.py`: dataset pytorch for JET
-  -`metric.py`: metrics
-  -`plot_utils.py`: functions to plot
+  - `data_exploration.py`: functions for data exploration
+  - `path.py`: path management
+  - `data_preprocessing.py`: functions for data preprocessing
+  - `dataset.py`: dataset pytorch for JET
+  - `metric.py`: metrics
+  - `plot_utils.py`: functions to plot
 
 ## References
 
