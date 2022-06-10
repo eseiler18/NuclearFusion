@@ -1,7 +1,0 @@
-matplotlib
-numpy
-pandas
-torch
-torchvision
-tqdm
-pyarrow
