@@ -1,0 +1,5 @@
+Receptive field 1000ms
+kernel size = 3
+stack size = 4
+layer size = 6
+rec = 507
