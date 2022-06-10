@@ -270,11 +270,11 @@ def plot_result(shot: int, model: nn.Module, threshold: float,
     tD = get_tD(shot)
     fig = plt.figure(1, figsize=(14, 3))
     ax1 = plt.subplot()
+    time = data.index.values[-len(pred):]
     if tD == -1000:
         gt = torch.zeros(len(pred)).tolist()
     else:
         tD_start = -1000
-        time = data.index.values[-len(pred):]
         f = open(os.path.join(LABEL_PATH, "JET_Train.json"))
         jet_train = json.load(f)
         pres_disr = jet_train['Class']["PreDisr"]['Summary']
