@@ -34,6 +34,8 @@ This is the structure of the repository:
   - `dataset.py`: dataset pytorch for JET
   - `metric.py`: metrics
   - `plot_utils.py`: functions to plot
+- `environment.yml`: environment.yml file with all dependencies to setup a conda environnement
+
 
 ## Data
 Parquet data are provide on the SPC lac 10 cluster in the `/tmp/apau/` folder  
@@ -62,5 +64,5 @@ Other parameter
 - `--validation`: boolean, split data in train and test set
 - `--split`: float, split ratio
 
-On lac10 cluster recommend batch-size <= 12.  
+On lac10 cluster recommend batch-size < 12.  
 Model and log of the training will be save in `project/output` at the end of the training
