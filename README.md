@@ -3,7 +3,7 @@
 Semester project of [Emilien Seiler](mailto:emilien.seiler@epfl.ch), Master in Computational Science and Engineering at EPFL. 
 Collaboration project between Computer Vision Laboratory (CVLab) and the Swiss Plasma Center (SPC) at EPFL.
 
-## Instaling
+## Installing
 To setup a miniconda environement
 ```
 conda env create -f <path_to_environement.yml_file>
