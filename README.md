@@ -1,16 +1,17 @@
-# Nucelar fusion Jet DataSet project [Author: Emilien Seiler Master EPFL 2020]
+# Disruption prediction for nuclear fusion with Wavenet on JET dataset [Author: Emilien Seiler Master EPFL 2020]
 
 * [Emilien Seiler](mailto:emilien.seiler@epfl.ch)
 
-Code for the master semester project of Emilien Seiler at EPFL. Collaboration project between Computer Vision Laboratory (CVLab) and the Swiss Plasma Center (SPC) at EPFL
+Semester project of Emilien Seiler, Master in Computational Science and Engineering at EPFL. 
+Collaboration project between Computer Vision Laboratory (CVLab) and the Swiss Plasma Center (SPC) at EPFL.
 
-## Documentation
-to setup a miniconda environement
+## Instaling
+To setup a miniconda environement
 ```
 conda env create -f <path_to_environement.yml_file>
 ```
 
-### To train model
+## To train model
 ```
 cd project/script
 ```
@@ -21,24 +22,9 @@ On lac10 server recommend batch-size <= 12.
 
 Model and log of the training will be save in project/output at the end of the training
 
-### Data
+## Data
 parquet data are in the /tmp/apau file of lac10
 
-## Installing
-
-To run the code of this project, you need to install the libraries listed in
-the `requirements.txt` file. You can perform the installation using this
-command:
-```
-pip3 install -r requirements.txt
-```
-Dependencies:
-- matplotlib
-- numpy
-- pickle
-- torch
-- torchvision
-- tqdm
 
 ## Structure
 
@@ -65,8 +51,3 @@ This is the structure of the repository:
   - `dataset.py`: dataset pytorch for JET
   - `metric.py`: metrics
   - `plot_utils.py`: functions to plot
-
-## References
-
-See [references](references.md).
-
