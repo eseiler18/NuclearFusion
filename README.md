@@ -9,7 +9,7 @@ To setup a miniconda environement
 conda env create -f <path_to_environement.yml_file>
 ```
 ## Data
-Parquet data are provide on the SPC lac 10 cluster in the `/tmp/apau/ folder`
+Parquet data are provide on the SPC lac 10 cluster in the `/tmp/apau/` folder
 Dataset1 with 150 channels in `/parquet150chan`
 Dataset2 with 372 channels in `/parquet372chan`
 
