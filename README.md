@@ -13,7 +13,7 @@ Parquet data are provide on the SPC lac 10 cluster in the `/tmp/apau/ folder`
 Dataset1 with 150 channels in `/parquet150chan`
 Dataset2 with 372 channels in `/parquet372chan`
 
-## To train model
+## Train
 ```
 python train.py --epoch <nb_epoch> --batch <batch_size> --parquet-dir <path_to_parquet> --input-channels <channel 150 or 372>
 ```
