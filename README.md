@@ -35,7 +35,7 @@ This is the structure of the repository:
   - `metric.py`: metrics
   - `plot_utils.py`: functions to plot
 - `environment.yml`: environment.yml file with all dependencies to setup a conda environnement
-- `Report_EmilienSeiler_SemesterProject_MasterCSE.pdf`; report of the project
+- `Report_EmilienSeiler_SemesterProject_MasterCSE.pdf`: report of the project
 
 
 ## Data
