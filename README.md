@@ -56,7 +56,7 @@ To train on a Wavenet with other hyperparameters:
 - `--kernel-size`: int
 - `--stack-size`: int
 - `--layer-size`: int
-- `--nrecept`: int, depand of the three hyperparameter look in the [report][https://github.com/eseiler18/NuclearFusion/blob/main/Report_EmilienSeiler_SemesterProject_MasterCSE.pdf) Eq. 4
+- `--nrecept`: int, depand of the three hyperparameter look in the [report](https://github.com/eseiler18/NuclearFusion/blob/main/Report_EmilienSeiler_SemesterProject_MasterCSE.pdf) Eq. 4
 - `--dropout`: float
 
 Other parameter
